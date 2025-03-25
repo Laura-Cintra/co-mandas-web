@@ -17,7 +17,7 @@ export default function NavBar() {
 
   return (
     <>
-        <nav className="flex flex-col gap-2 bg-white max-w-xs h-screen items-center justify-between p-6">
+        <nav className="flex flex-col gap-2 bg-white max-w-3xs h-screen items-center justify-between p-6">
           <div className="flex flex-col items-center gap-2">
           <Image src={Logo} alt="" width="100" height="50" />
           <hr />
