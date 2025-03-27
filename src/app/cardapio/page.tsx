@@ -1,8 +1,9 @@
 "use client";
 
+import CrudDropDown from "@/components/crud-dropdown";
 import { EllipsisVertical, Plus, Search } from "lucide-react";
-import React, { useEffect, useState } from "react";
-import Loading from "react-loading";
+import { useEffect, useState } from "react";
+// import Loading from "react-loading";
 
 async function getPratos(): Promise<Dishes[]> {
     try {
@@ -17,18 +18,19 @@ async function getPratos(): Promise<Dishes[]> {
     }
 }
 
-export default function Cardapio() {
-    const [loading, setLoading] = useState(true);
-    const [data, setData] = useState<Dishes[]>([]);
+export default async function Cardapio() {
+    // const [loading, setLoading] = useState(true);
+    const data = await getPratos();
+    // const [data, setData] = useState<Dishes[]>([]);
 
-    useEffect(() => {
-        async function fetchData() {
-            const dishes = await getPratos();
-            setData(dishes);
-            setLoading(false);
-        }
-        fetchData();
-    }, []);
+    // useEffect(() => {
+    //     async function fetchData() {
+    //         const dishes = await getPratos();
+    //         setData(dishes);
+    //         setLoading(false);
+    //     }
+    //     fetchData();
+    // }, []);
 
     return (
         <div className="p-4">
@@ -57,12 +59,8 @@ export default function Cardapio() {
                         <span></span>
                     </section>
 
-                    <div className="flex flex-col max-h-[320px] overflow-y-scroll pb-2 custom-scrollbar md:max-h-[280px] xl:max-h-[450px] 2xl:max-h-[200px]">
-                        {loading ? (
-                            <div className="flex justify-center items-center w-[100%] h-[250px]">
-                                <Loading color="#4D4D4D" type="bars" height={80} width={80} />
-                            </div>
-                        ) : data.length === 0 ? (
+                    <div className="flex flex-col max-h-[320px] overflow-y-auto pb-2 custom-scrollbar md:max-h-[280px] xl:max-h-[450px] 2xl:max-h-[550px]">
+                        {data.length === 0 ? (
                             <div className="flex justify-center items-center h-full">
                                 <p className="text-gray-500">Nenhum prato encontrado</p>
                             </div>
@@ -77,7 +75,7 @@ export default function Cardapio() {
                                     <strong>{item.category}</strong>
                                     <strong>R$ {item.price}</strong>
                                     <div className="justify-self-end pr-2">
-                                        <EllipsisVertical />
+                                        <CrudDropDown />
                                     </div>
                                 </div>
                             ))
