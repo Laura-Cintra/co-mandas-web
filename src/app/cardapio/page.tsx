@@ -1,7 +1,10 @@
+import NavBar from "@/components/navbar";
 import { IoIosSearch, IoMdMore } from "react-icons/io";
 
 export default function Cardapio(){
     return(
+        <>
+        <NavBar/>
         <div className="p-4">
         <h1 className="text-3xl font-semibold">Cardápio</h1>
         <p className="text-[#828282] text-lg">Aqui você pode ver todos os itens do cardápio de seu restaurante</p>
@@ -37,5 +40,6 @@ export default function Cardapio(){
             </div>
         </div>
         </div>
+        </>
     )
 }
