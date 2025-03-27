@@ -18,7 +18,7 @@ const menuItems = [
 */
 
 const menuItems = [
-    { icon: TrendingUp, text: "dashboard", href: "/dashboard" },
+    { icon: TrendingUp, text: "dashboard", href: "/" },
     { icon: Store, text: "restaurante", href: "/restaurante"},
     { icon: BookOpenText, text: "cardápio", href: "/cardapio" },
     { icon: IdCard, text: "funcionários", href: "/funcionarios"},
@@ -34,7 +34,7 @@ export default function NavBar() {
   };
 
   return (
-    <nav className={`flex flex-col gap-2 bg-white h-screen items-center justify-between p-6 drop-shadow-lg transition-all duration-200 ease-linear fixed ${
+    <nav className={`flex flex-col gap-2 bg-white h-screen items-center justify-between p-6 drop-shadow-lg transition-all duration-200 ease-linear ${
       isMenuCollapsed ? "w-20" : "w-72"}`}>
       <div className="flex flex-col items-center gap-2">
         <div

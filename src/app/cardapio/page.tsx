@@ -1,9 +1,7 @@
-"use client";
-
 import CrudDropDown from "@/components/crud-dropdown";
-import { EllipsisVertical, Plus, Search } from "lucide-react";
-import { useEffect, useState } from "react";
-// import Loading from "react-loading";
+import NavBar from "@/components/navbar";
+import { Plus, Search } from "lucide-react";
+
 
 async function getPratos(): Promise<Dishes[]> {
     try {
@@ -18,22 +16,16 @@ async function getPratos(): Promise<Dishes[]> {
     }
 }
 
-export default async function Cardapio() {
-    // const [loading, setLoading] = useState(true);
-    const data = await getPratos();
-    // const [data, setData] = useState<Dishes[]>([]);
 
-    // useEffect(() => {
-    //     async function fetchData() {
-    //         const dishes = await getPratos();
-    //         setData(dishes);
-    //         setLoading(false);
-    //     }
-    //     fetchData();
-    // }, []);
+export default async function Cardapio() {
+    const data = await getPratos();
 
     return (
-        <div className="p-4">
+        <>
+     
+      <div className="flex">
+        <NavBar/>
+      <div className="p-4 w-[100%]">
             <h1 className="text-3xl font-semibold">Cardápio</h1>
             <p className="text-[#828282] text-lg">
                 Aqui você pode ver todos os itens do cardápio de seu restaurante
@@ -91,5 +83,11 @@ export default async function Cardapio() {
                 </div>
             </div>
         </div>
+      </div>
+
+          
+              
+        </>
+        
     );
 }

@@ -1,3 +1,5 @@
+"use client"
+
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -5,7 +7,6 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { EllipsisVertical, Pencil, Trash } from "lucide-react"
-
 
 export default function CrudDropDown() {
     return (
@@ -26,3 +27,4 @@ export default function CrudDropDown() {
 
     )
 }
+
