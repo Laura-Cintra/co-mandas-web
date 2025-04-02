@@ -1,6 +1,7 @@
 import CrudDropDown from "@/components/crud-dropdown";
 import NavBar from "@/components/navbar";
 import { Plus, Search } from "lucide-react";
+import Link from "next/link";
 
 
 async function getPratos(): Promise<Dishes[]> {
@@ -75,10 +76,12 @@ export default async function Cardapio() {
                     </div>
 
                     <div className="flex justify-end mt-4">
+                        <Link href={"/cardapio/form"}>
                         <button className="shadow-lg h-[32px] w-[167px] font-semibold text-white bg-[#F58488] text-[15px] rounded-md flex items-center justify-center gap-2 cursor-pointer">
                             <Plus color="white" />
                             adicionar prato
                         </button>
+                        </Link>
                     </div>
                 </div>
             </div>
