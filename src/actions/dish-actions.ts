@@ -40,11 +40,11 @@ export async function createDish(initialState: any, formData: FormData) {
             errors: {
                 name: "O nome é obrigatório",
                 description: "A descrição é obrigatória",
-                category: "Erro na categoria",
+                category: "A categoria é obrigatória",
                 price: "O preço é obrigatório, e deve ser positivo"
             }
         };
     }
 
-    redirect("/cardapio"); // Redireciona apenas se a criação for bem-sucedida
+    redirect("/cardapio"); 
 }
