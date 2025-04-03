@@ -1,26 +1,50 @@
+import { redirect } from "next/navigation";
+
+const API_URL = "http://localhost:8080/dishes";
+
+
+export async function getPratos(): Promise<Dishes[]> {
+    try {
+        const response = await fetch("http://localhost:8080/dishes");
+        if (!response.ok) {
+            return [];
+        }
+        return await response.json();
+    } catch (error) {
+        console.error("Erro ao buscar pratos:", error);
+        return [];
+    }
+}
+
+
 export async function createDish(initialState: any, formData: FormData) {
     const data = {
         name: formData.get("name"),
-        icon: formData.get("icon")
-    }
-    
+        description: formData.get("description"),
+        category: formData.get("category"),
+        price: formData.get("price")
+    };
+
     const options = {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
         },
         body: JSON.stringify(data)
-    }
+    };
 
-    const response = await fetch(API_URL, options)
+    const response = await fetch(API_URL, options);
 
-    if(response.ok){
-        return{
+    if (!response.ok) {
+        return {
             errors: {
-                name: "nome é obrigatório",
-                icon: "tem que começar com maiúscula"
+                name: "O nome é obrigatório",
+                description: "A descrição é obrigatória",
+                category: "Erro na categoria",
+                price: "O preço é obrigatório, e deve ser positivo"
             }
-        }
+        };
     }
-    redirect("/categories")
+
+    redirect("/cardapio"); // Redireciona apenas se a criação for bem-sucedida
 }

@@ -1,21 +1,8 @@
+import { getPratos } from "@/actions/dish-actions";
 import CrudDropDown from "@/components/crud-dropdown";
 import NavBar from "@/components/navbar";
 import { Plus, Search } from "lucide-react";
 import Link from "next/link";
-
-
-async function getPratos(): Promise<Dishes[]> {
-    try {
-        const response = await fetch("http://localhost:8080/dishes");
-        if (!response.ok) {
-            return [];
-        }
-        return await response.json();
-    } catch (error) {
-        console.error("Erro ao buscar pratos:", error);
-        return [];
-    }
-}
 
 
 export default async function Cardapio() {

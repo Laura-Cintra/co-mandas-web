@@ -24,7 +24,7 @@ const initialState = {
 }
 
 export default function DishRegisters(){
-    const[state, formAction, pendind] = useActionState(createDish, initialState) // state - mudança do estado que vai sinalizar o erro
+    const[state, formAction] = useActionState(createDish, initialState) // state - mudança do estado que vai sinalizar o erro
 
     return(
     <>     
@@ -52,9 +52,9 @@ export default function DishRegisters(){
                                     <SelectValue placeholder="Selecione uma categoria" />
                                 </SelectTrigger>
                                 <SelectContent>
-                                    <SelectItem value="PRATO_PRINCIPAL">Prato Principal</SelectItem>
-                                    <SelectItem value="SOBREMESA">Sobremesa</SelectItem>
-                                    <SelectItem value="ENTRADA">Entrada</SelectItem>
+                                    <SelectItem value="Prato principal">Prato Principal</SelectItem>
+                                    <SelectItem value="Sobremesa">Sobremesa</SelectItem>
+                                    <SelectItem value="Entrada">Entrada</SelectItem>
                                 </SelectContent>
                             </Select>
                             <span className="text-sm text-red-500">{state?.errors.category}</span>
@@ -70,10 +70,10 @@ export default function DishRegisters(){
                         </div>
 
                         <div className="flex justify-start">
-                            <Button variant="outline" asChild>
+                            <Button className="cursor-pointer" variant="outline" asChild>
                                 <Link href="/cardapio">Cancelar</Link>
                             </Button>
-                            <Button className="ml-5 bg-[#EF3C42]">Salvar</Button>
+                            <Button className="ml-5 bg-[#EF3C42] cursor-pointer">Salvar</Button>
                         </div>
                     </form>
                 </div>
