@@ -5,7 +5,7 @@ const API_URL = "http://localhost:8080/dishes";
 
 export async function getPratos(): Promise<Dishes[]> {
     try {
-        const response = await fetch("http://localhost:8080/dishes");
+        const response = await fetch(API_URL);
         if (!response.ok) {
             return [];
         }
