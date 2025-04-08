@@ -23,14 +23,8 @@ const initialState = {
     }
 }
 
-export default function DishRegisters({ onClose }: { onClose?: () => void }){
+export default function DishRegisters(){
     const[state, formAction] = useActionState(createDish, initialState) // state - mudança do estado que vai sinalizar o erro
-
-    useEffect(() => {
-        if (state !== initialState && onClose) {
-          onClose()
-        }
-      }, [state, onClose])
     
     return(
     <>     
@@ -78,7 +72,7 @@ export default function DishRegisters({ onClose }: { onClose?: () => void }){
                 </div>
 
                 <div className="flex justify-start">
-                    <Button className="cursor-pointer" variant="outline" onClick={onClose} asChild>
+                    <Button className="cursor-pointer" variant="outline" asChild>
                         <Link href="/cardapio">Cancelar</Link>
                     </Button>
                     <Button type="submit" className="ml-5 bg-[#EF3C42] cursor-pointer">Salvar</Button>
