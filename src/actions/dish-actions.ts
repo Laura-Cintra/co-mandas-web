@@ -2,7 +2,6 @@ import { redirect } from "next/navigation";
 
 const API_URL = "http://localhost:8080/dishes";
 
-
 export async function getPratos(): Promise<Dishes[]> {
     try {
         const response = await fetch(API_URL);
@@ -36,12 +35,21 @@ export async function createDish(initialState: any, formData: FormData) {
     const response = await fetch(API_URL, options);
 
     if (!response.ok) {
+        const errors = await response.json()
+        console.log("Lista erros:", errors);
+
         return {
+            values:{
+              name: formData.get("name"),
+              description: formData.get("description"),
+              category: formData.get("category"),
+              price: formData.get("price"),
+            },
             errors: {
-                name: "O nome é obrigatório",
-                description: "A descrição é obrigatória",
-                category: "A categoria é obrigatória",
-                price: "O preço é obrigatório, e deve ser positivo"
+                name: errors.find((e: any) => e.field === "name")?.message,
+                description: errors.find((e: any) => e.field === "description")?.message,
+                category: errors.find((e: any) => e.field === "category")?.message,
+                price: errors.find((e: any) => e.field === "price")?.message,
             }
         };
     }
