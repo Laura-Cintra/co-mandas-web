@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import Link from "next/link";
 import { useActionState, useEffect } from "react";
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
+import * as DialogPrimitive from "@radix-ui/react-dialog"
 
 const initialState = {
     values: {
@@ -21,6 +22,16 @@ const initialState = {
         category: "",
         description: ""
     }
+}
+
+function CancelButton() {
+  return (
+    <DialogPrimitive.Close asChild>
+      <Button className="cursor-pointer" variant="outline">
+        Cancelar
+      </Button>
+    </DialogPrimitive.Close>
+  );
 }
 
 export default function DishRegisters(){
@@ -72,9 +83,10 @@ export default function DishRegisters(){
                 </div>
 
                 <div className="flex justify-start">
-                    <Button className="cursor-pointer" variant="outline" asChild>
+                    {/* <Button className="cursor-pointer" variant="outline" onClick={CloseModal} asChild>
                         <Link href="/cardapio">Cancelar</Link>
-                    </Button>
+                    </Button> */}
+                    <CancelButton/>
                     <Button type="submit" className="ml-5 bg-[#EF3C42] cursor-pointer">Salvar</Button>
                 </div>
             </form>
