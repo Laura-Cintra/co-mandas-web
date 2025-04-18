@@ -4,3 +4,7 @@ interface Dishes {
     category: string;
     price: number;
 }
+
+interface BasePageProps {
+    children: ReactNode;
+  }
