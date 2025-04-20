@@ -7,4 +7,8 @@ interface Dishes {
 
 interface BasePageProps {
     children: ReactNode;
-  }
+}
+
+interface SearchProps{
+    onChange: (value: string) => void;
+}

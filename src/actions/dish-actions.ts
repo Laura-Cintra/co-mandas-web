@@ -2,13 +2,21 @@ import { redirect } from "next/navigation";
 
 const API_URL = "http://localhost:8080/dishes";
 
-export async function getPratos(): Promise<Dishes[]> {
+export async function getPratos(query?: string): Promise<Dishes[]> {
     try {
-        const response = await fetch(API_URL);
+
+        const endpoint = query?
+        `${API_URL}?name=${encodeURIComponent(query)}`
+        : API_URL
+
+        const response = await fetch(endpoint);
         if (!response.ok) {
             return [];
         }
-        return await response.json();
+        const data = await response.json();
+
+        return data.content || [];
+
     } catch (error) {
         console.error("Erro ao buscar pratos:", error);
         return [];

@@ -1,13 +1,26 @@
+"use client"
+
 import { getPratos } from "@/actions/dish-actions";
 import BasePage from "@/components/base-page";
 import CrudDropDown from "@/components/crud-dropdown";
 import DishRegisters from "@/components/dish-register";
+import Search from "@/components/search";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTrigger, DialogTitle, DialogDescription } from "@/components/ui/dialog"
-import { Plus, Search } from "lucide-react";
+import { Plus } from "lucide-react";
+import { useEffect, useState } from "react";
 
-export default async function Cardapio() {
-    const data = await getPratos();
+export default function Cardapio() {
+    const [query, setQuery] = useState("") //guarda o texto que o user digita
+    const [data, setData] = useState<Dishes[]>([])
+
+    useEffect(() => {
+        const delay = setTimeout(async () => {
+            const pratos = await getPratos(query); //chama a api passando o texto buscado, se tiver, senao passa query = "", ou seja nada, entao busca tudo
+            setData(pratos); //atualiza a lista de pratos
+        }, 500)
+        return () => clearTimeout(delay); //ajuda a disparar depois de um tempo digitado, e n enquanto ta digitando
+    }, [query])
 
     return (
         <BasePage>
@@ -15,14 +28,8 @@ export default async function Cardapio() {
             <p className="text-[#828282] text-lg">Aqui você pode ver todos os itens do cardápio de seu restaurante</p>
             <div className="flex flex-col gap-4 p-4 rounded-lg bg-white shadow-lg mt-3">
                 <div className="flex justify-center items-center">
-                    <div className="border border-gray-300 h-9 w-[60%] p-0.5 rounded-lg flex">
-                        <input
-                            className="w-full border-none text-lg pl-4 focus:outline-none text-[#798593]"
-                            type="text"
-                            placeholder="Busque por um prato"
-                        />
-                        <Search size={22} color="#798593" />
-                    </div>
+                    <Search onChange={(value) => setQuery(value)}/>
+                    {/* "Quando o valor do campo no input mudar, atualiza o meu query" */}
                 </div>
 
                 <div className="flex flex-col">
