@@ -4,18 +4,27 @@ import { useState } from "react";
 import { ChevronDown, Clock } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
-const horarios = [
-  { dia: "Segunda-feira", horario: "13:00 - 22:00" },
-  { dia: "Terça-feira", horario: "13:00 - 22:00" },
-  { dia: "Quarta-feira", horario: "13:00 - 22:00" },
-  { dia: "Quinta-feira", horario: "13:00 - 22:00" },
-  { dia: "Sexta-feira", horario: "13:00 - 23:00" },
-  { dia: "Sábado", horario: "12:00 - 23:00" },
-  { dia: "Domingo", horario: "12:00 - 22:00" },
-];
+type Horario = {
+  dia: string;
+  horario: string;
+};
 
-export default function HorarioFuncionamento() {
+// const horarios = [
+//   { dia: "Segunda-feira", horario: "13:00 - 22:00" },
+//   { dia: "Terça-feira", horario: "13:00 - 22:00" },
+//   { dia: "Quarta-feira", horario: "13:00 - 22:00" },
+//   { dia: "Quinta-feira", horario: "13:00 - 22:00" },
+//   { dia: "Sexta-feira", horario: "13:00 - 23:00" },
+//   { dia: "Sábado", horario: "12:00 - 23:00" },
+//   { dia: "Domingo", horario: "12:00 - 22:00" },
+// ];
+
+export default function HorarioFuncionamento({ horarios }: { horarios: Horario[] }) {
   const [expandir, setExpandir] = useState(false);
+
+  if (!horarios || horarios.length === 0) {
+    return <p className="text-[#828282]">Horários não disponíveis.</p>;
+  }
 
   return (
     <div className="mt-[20px] w-[300px] flex flex-col">
@@ -33,7 +42,7 @@ export default function HorarioFuncionamento() {
       </div>
 
       {/* Segunda-feira sempre visível */}
-      <div className="mt-[8px] flex justify-between items-center text-[#828282] text-[15px]">
+      <div className="mt-[8px] flex justify-between items-center text-[#828282] text-[15px] mb-1.5">
         <p>{horarios[0].dia}</p>
         <div className="flex items-center gap-[5px]">
           <Clock size={15} />
