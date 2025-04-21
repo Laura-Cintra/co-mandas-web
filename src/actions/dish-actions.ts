@@ -2,27 +2,29 @@ import { redirect } from "next/navigation";
 
 const API_URL = "http://localhost:8080/dishes";
 
-export async function getPratos(query?: string): Promise<Dishes[]> {
+export async function getPratos(query?: string, page: number = 0): Promise<Pageable> {
     try {
-
-        const endpoint = query?
-        `${API_URL}?name=${encodeURIComponent(query)}`
-        : API_URL
-
-        const response = await fetch(endpoint);
-        if (!response.ok) {
-            return [];
-        }
-        const data = await response.json();
-
-        return data.content || [];
-
+      const params = new URLSearchParams();
+      if (query) params.append("name", query);
+      params.append("page", page.toString());
+  
+      const response = await fetch(`${API_URL}?${params.toString()}`);
+      if (!response.ok) {
+        return { content: [], last: false, first: false, page: 0 };
+      }
+  
+      const data = await response.json();
+      return {
+        content: data.content,
+        last: data.last,
+        first: data.first,
+        page: data.pageable.pageNumber
+      };
     } catch (error) {
-        console.error("Erro ao buscar pratos:", error);
-        return [];
+      console.error("Erro ao buscar pratos:", error);
+      return { content: [], last: false, first: false, page: 0 };
     }
-}
-
+  }
 
 export async function createDish(initialState: any, formData: FormData) {
     const data = {

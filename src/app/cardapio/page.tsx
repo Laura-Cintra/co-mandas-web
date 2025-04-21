@@ -7,20 +7,43 @@ import DishRegisters from "@/components/dish-register";
 import Search from "@/components/search";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTrigger, DialogTitle, DialogDescription } from "@/components/ui/dialog"
-import { Plus } from "lucide-react";
+import { ChevronLeft, ChevronRight, Plus } from "lucide-react";
 import { useEffect, useState } from "react";
 
 export default function Cardapio() {
     const [query, setQuery] = useState("") //guarda o texto que o user digita
     const [data, setData] = useState<Dishes[]>([])
+    const [pageable, setPageable] = useState<PageableProps>({
+        last: false,
+        first: false,
+        page: 0
+    });
+    
+    const nextPage = () => {
+        setPageable(prev => ({
+            ...prev,
+            page: prev.page + 1
+        })); 
+    }
+    const previousPage = () => {
+        setPageable(prev => ({
+            ...prev,
+            page: prev.page - 1
+        })); 
+    }
 
     useEffect(() => {
         const delay = setTimeout(async () => {
-            const pratos = await getPratos(query); //chama a api passando o texto buscado, se tiver, senao passa query = "", ou seja nada, entao busca tudo
-            setData(pratos); //atualiza a lista de pratos
+            const data = await getPratos(query, pageable.page); //chama a api passando o texto buscado, se tiver, senao passa query = "", ou seja nada, entao busca tudo
+            setData(data.content); //atualiza a lista de pratos
+            setPageable({
+                last: data.last,
+                first: data.first,
+                page: data.page
+            });
         }, 500)
         return () => clearTimeout(delay); //ajuda a disparar depois de um tempo digitado, e n enquanto ta digitando
-    }, [query])
+    }, [query, pageable.page])
 
     return (
         <BasePage>
@@ -80,6 +103,23 @@ export default function Cardapio() {
                                 <DishRegisters />
                             </DialogContent>
                         </Dialog>
+                    </div>
+                </div>
+                <div className="flex justify-center items-center gap-2.5 mb-5" >
+                    <div className={`flex items-center justify-center rounded-full 
+                        ${pageable.first ? ` bg-[#F58488] cursor-not-allowed` :  `bg-[#EF3C42] cursor-pointer`}`}
+                        onClick={!pageable.first ? previousPage : undefined}
+                        >
+                        <ChevronLeft color="white" size={28}/>
+                    </div>
+                    <div className="flex border-2 border-[#EF3C42] w-7 items-center justify-center rounded-[5px]">
+                        <p>{pageable.page + 1}</p>
+                    </div>
+                    <div className={`flex items-center justify-center rounded-full 
+                        ${pageable.last ? ` bg-[#F58488] cursor-not-allowed` :  `bg-[#EF3C42] cursor-pointer`}`}
+                        onClick={!pageable.last ? nextPage : undefined}
+                        >                       
+                        <ChevronRight color="white" size={28}/>
                     </div>
                 </div>
             </div>

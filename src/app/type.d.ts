@@ -12,3 +12,15 @@ interface BasePageProps {
 interface SearchProps{
     onChange: (value: string) => void;
 }
+
+interface Pageable{
+    content: Dishes[];
+    last: boolean;
+    first: boolean;
+    page: number
+}
+interface PageableProps{
+    last: boolean;
+    first: boolean;
+    page: number
+}
