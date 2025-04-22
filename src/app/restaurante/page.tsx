@@ -22,7 +22,7 @@ export default async function Restaurante() {
         Aqui você pode ver as informações cadastradas sobre seu restaurante
       </p>
 
-      <div className="flex gap-6">
+      <div className="flex gap-6 m-5">
         <Image
           src={restaurante}
           alt="Foto do restaurante"
