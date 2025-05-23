@@ -24,3 +24,10 @@ interface PageableProps{
     first: boolean;
     page: number
 }
+
+interface DishFormData {
+  name: string;
+  description: string;
+  category: string;
+  price: string; 
+}

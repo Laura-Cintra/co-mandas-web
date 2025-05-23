@@ -4,8 +4,7 @@ import { createDish } from "@/actions/dish-actions";
 // import NavBar from "@/components/navbar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import Link from "next/link";
-import { useActionState, useEffect } from "react";
+import { useActionState } from "react";
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
 import * as DialogPrimitive from "@radix-ui/react-dialog"
 
